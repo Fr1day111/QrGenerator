@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class MyTextField extends StatelessWidget {
-  const MyTextField({required this.label, required this.controller,this.isAutoValidate, super.key});
+  const MyTextField({required this.label, required this.controller,this.isAutoValidate,required this.hintText, super.key});
 
   final String label;
+  final String hintText;
   final TextEditingController controller;
   final bool? isAutoValidate;
 
@@ -23,6 +24,7 @@ class MyTextField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
           labelText: label,
+          hintText: hintText,
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)))),
     );

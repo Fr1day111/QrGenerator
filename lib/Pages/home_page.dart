@@ -39,22 +39,28 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 20,),
-                  MyTextField(label: 'Paste Your Link Here..', controller: textController),
+                  MyTextField(hintText:'Paste Your Link Here..',label: 'Paste Your Link Here..', controller: textController),
                   const SizedBox(height: 20,),
                   !isLoading?MyButton(label: 'Submit', onTap: (){
                     if(formKey.currentState!.validate()){
-                      bool _validURL = Uri.parse(textController.text).isAbsolute;
-                      if(_validURL){
                         ref.read(loadingProvider.notifier).update((state) => true);
                         Future.delayed(const Duration(seconds: 2)).then((value){
                           link = textController.text;
                           isSubmitted =true;
                           ref.read(loadingProvider.notifier).update((state) => false);
                         });
-                      }
                     }
                   }):const CircularProgressIndicator(),
-                  isSubmitted?QrImageView(data: link!,size: 200,backgroundColor: Colors.white,):Container()
+                  isSubmitted?Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        QrImageView(data: link!,size: 200,backgroundColor: Colors.white,),
+                        SizedBox(height: 10,),
+                        MyButton(label: "Share", onTap: (){})
+                      ],
+                    ),
+                  ):Container()
                 ],
               ),
             ),
